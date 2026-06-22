@@ -1,0 +1,57 @@
+AeroDesk — How to run (XAMPP, the easy way)
+============================================
+
+1. Install XAMPP from https://www.apachefriends.org
+2. Open the XAMPP Control Panel and click Start on:
+      - Apache
+      - MySQL
+3. Copy the whole "aerodesk" folder into XAMPP's web root:
+      Windows : C:\xampp\htdocs\aerodesk
+      macOS   : /Applications/XAMPP/htdocs/aerodesk
+      Linux   : /opt/lampp/htdocs/aerodesk
+4. In your browser go to:
+      http://localhost/aerodesk/
+5. Sign in:
+      username: admin
+      password: admin123
+
+The database (named "aerodesk") is created and filled automatically the first
+time the page loads — no manual import needed.
+
+------------------------------------------------------------
+Troubleshooting
+------------------------------------------------------------
+* "Cannot connect to MySQL"
+    -> Start MySQL in XAMPP. If your MySQL has a password, set it in config.php:
+         define('DB_USER','root');
+         define('DB_PASS','your_password');
+
+* Page shows PHP code instead of the app
+    -> You opened the file directly. Always use http://localhost/aerodesk/
+
+* Port 80 busy (Apache won't start)
+    -> Change Apache to port 8080 (Config > httpd.conf > Listen 8080),
+       then open http://localhost:8080/aerodesk/
+
+* Want to load the SQL yourself
+    -> phpMyAdmin (http://localhost/phpmyadmin) > Import > choose database.sql
+       (Optional — the app does this automatically.)
+
+------------------------------------------------------------
+Accounts & roles (role-based login)
+------------------------------------------------------------
+* admin    / admin123     Admin Dashboard — full access: records (add/edit/
+                          delete), users, audit logs, reports, exports, reset DB
+* agent    / agent123      Agent Dashboard — search & book, cancel, view database
+                          (read-only), reports, CSV/Excel exports, PDF tickets
+* customer / customer123   Customer Portal — search flights, view bookings,
+                          download own boarding-pass PDF
+
+File & ticket features:
+* PDF boarding pass : Bookings tab > "⬇ PDF" (or after booking)  -> ticket.php
+* Passenger export  : Reports tab > "Passengers (Excel/CSV)"     -> export.php
+* Booking report    : Reports tab > "Booking Report (CSV)"       -> export.php
+
+Security:
+* Every sensitive action (login, book, cancel, add/edit/delete, export,
+  ticket download, reset) is written to the Audit Logs (admin only).

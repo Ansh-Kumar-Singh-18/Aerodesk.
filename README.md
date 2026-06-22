@@ -1,121 +1,106 @@
-<div align="center">
-✈️ AeroDesk
-Passenger Flight Booking Through Agency — Full-Stack Web Application
-A premium, role-based flight booking management system where travel agencies book and manage flights for passengers — built with PHP, MySQL, and vanilla JavaScript, wrapped in a modern glassmorphism UI.
-![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-Designed & Developed by Ansh Kumar Singh
-DBMS Project (CSIT-405) · Sagar Institute of Research and Technology
-</div>
+# ✈️ AeroDesk — Premium Flight Booking Suite (PHP · MySQL · JS)
+
+A second, more **modern, professional and attractive** web app built from the
+**CSIT-405 DBMS Case Study** (*Passenger Flight Booking Through Agency*, Sagar
+Institute of Research and Technology; original case study by Dr. Aumreesh Kumar
+Saxena).
+
+> This is a fresh, redesigned alternative to the earlier `flight-booking-system`
+> app — same database concepts, a far richer UI/UX.
+
 ![preview](assets/preview.png)
+
 ---
-📖 Overview
-AeroDesk digitizes the real-world workflow of a travel agency booking flights on behalf of passengers. It demonstrates core DBMS concepts — relational design, SQL joins, normalization, aggregate queries, and constraints — inside a polished, fully functional product rather than a bare academic exercise.
-The system supports three distinct user roles with server-side access control, a live SQL query lab, analytics dashboards, PDF boarding-pass generation, and a self-healing database that sets itself up on first run.
+
+## ✨ What makes it special
+
+- **Glassmorphism UI** with animated gradient blobs, a hero banner, and a
+  **light / dark theme toggle** (remembered across visits).
+- **Single-page feel** — every screen loads instantly via a **JSON API + fetch**
+  (AJAX); no full-page reloads.
+- **Boarding-pass experience** — search results render as airline tickets, and a
+  booking pops a printable-style **boarding pass** with an auto-assigned seat.
+- **Animated dashboard** — count-up KPI numbers, animated bar charts, and a
+  CSS **donut chart** of bookings by destination.
+- **Live SQL Lab** — all **30** case-study queries, syntax-highlighted and run
+  **live against MySQL**, with the real result set.
+- **Full CRUD** for passengers, agencies, flights (inline edit + delete with
+  referential-integrity protection).
+- **Role-based login** — three roles with tailored dashboards & permissions:
+  - **Admin** (`admin`/`admin123`) — full control: records, users, audit logs, reports, exports, DB reset
+  - **Agent** (`agent`/`agent123`) — book/cancel tickets, read-only database, reports & exports, PDF tickets
+  - **Customer** (`customer`/`customer123`) — search flights, view bookings, download own boarding pass
+- **Audit logs** (admin) — every sensitive action (login, book, cancel, add/edit/delete, export, ticket, reset) is recorded with user, role, IP and timestamp.
+- **File & ticket management**
+  - **PDF boarding pass** download (built-in PDF generator, no libraries)
+  - **Passenger / Bookings export** to Excel/CSV
+  - **Booking reports** (CSV) + an analytics Reports dashboard with charts
+- **User management** — create accounts (admin/agent/customer), reset passwords, delete (with self-delete & last-user safeguards).
+- **Toast notifications** and confirm dialogs throughout.
+
 ---
-✨ Features
-🔐 Role-Based Access Control
-Role	Capabilities
-Admin	Full control — records, users, audit logs, reports, exports, database reset
-Agent	Book/cancel tickets, view database, reports & exports, PDF tickets
-Customer	Search flights, book & view own bookings, download own boarding pass
-Secure authentication with bcrypt password hashing
-Server-side permission enforcement on every action
-Query-level data isolation — customers see only their own records
-🎫 Booking & Flights
-Flight search by date + time with boarding-pass-style result cards
-Auto-assigned seats with duplicate-booking prevention
-Downloadable PDF boarding passes (no external libraries)
-Customer self-service portal linked to a passenger record
-🗄️ Database & SQL
-Full CRUD for passengers, agencies, flights & bookings (inline edit)
-Live SQL Lab — 30 real queries (joins, subqueries, `GROUP BY/HAVING`, `UNION`, aggregates, self-joins) run live against MySQL
-Self-healing schema — auto-creates, migrates, and seeds data on startup
-📊 Analytics & Reporting
-Dashboard charts: bookings by destination, source, and agency
-CSV / Excel export of records and reports
-Animated KPI counters and donut charts
-💬 Extras
-Feedback / contact system with admin notification bell and reply-by-email
-Audit logging — every sensitive action recorded with user, role, IP & timestamp
-Public marketing landing page (`home.php`)
-Custom glassmorphism UI — animated gradients, light/dark theme, loading skeletons, toasts, fully responsive
+
+## 🌐 Landing page (`home.php`)
+
+A polished public marketing page with five sections — **Hero, Features,
+Testimonials, Airline Partners, Contact** — matching the app's glassmorphism
+style, fully responsive, with scroll-reveal animations and a working contact
+form. Open **http://localhost/aerodesk/home.php**. It links to **Sign in** /
+**Launch App**, and the app's sidebar logo links back to it.
+
+## 📦 Files
+
+| File | Purpose |
+|------|---------|
+| `index.php` | App shell (renders layout, boots the JS SPA). |
+| `login.php` / `logout.php` | Authentication. |
+| `api.php` | JSON API — all reads, CRUD, bookings, users, SQL Lab. |
+| `config.php` | DB connection + first-run **auto-setup** + helpers. |
+| `queries.php` | The 30 case-study queries. |
+| `assets/style.css` | Premium dark/light theme. |
+| `assets/app.js` | SPA controller (views, charts, modals, toasts). |
+| `database.sql` | **All-in-one**: schema + data + 30 query solutions (comments). |
+| `README.md` / `INSTALL.txt` | Docs. |
+
 ---
-🛠️ Tech Stack
-Frontend: HTML5, CSS3, JavaScript (vanilla — no frameworks)
-Backend: PHP
-Database: MySQL / MariaDB
-Server: XAMPP (Apache + MySQL)
+
+## 🚀 Run with XAMPP
+
+1. Start **Apache** + **MySQL** in XAMPP.
+2. Copy the `aerodesk` folder into `xampp/htdocs/`.
+3. Open **http://localhost/aerodesk/** and sign in.
+
+The database creates and seeds itself automatically on first load.
+
+**Login:** `admin` / `admin123`
+
+> Different MySQL credentials? Edit the `DB_*` constants at the top of `config.php`.
+> Want to import the SQL manually instead? phpMyAdmin → Import → `database.sql`.
+
 ---
-🚀 Getting Started
-Prerequisites
-XAMPP (PHP 8+ and MySQL)
-Installation
-Clone the repository into your XAMPP `htdocs` folder:
-```bash
-   git clone https://github.com/<your-username>/aerodesk.git
-   ```
-> Place the project at `C:\xampp\htdocs\Aerodesk\`
-Start Apache and MySQL from the XAMPP Control Panel.
-Open the app in your browser:
+
+## 🗄️ Schema
+
 ```
-   http://localhost/Aerodesk/home.php       → public landing page
-   http://localhost/Aerodesk/index.php      → app (login)
-   ```
-That's it! The database (`aerodesk`) and all tables are created and seeded automatically on first load — no manual SQL import needed.
-> 💡 The schema is also available in `database.sql` if you prefer to import it manually via phpMyAdmin.
----
-🔑 Demo Accounts
-Role	Username	Password
-Admin	`admin`	`admin123`
-Agent	`agent`	`agent123`
-Customer	`customer`	`customer123`
----
-🗃️ Database Schema
-Table	Description
-`passenger`	Passenger details (id, name, gender, city)
-`agency`	Booking agencies (id, name, city)
-`flight`	Flights (id, date, time, source, destination)
-`booking`	Bookings linking passenger ↔ agency ↔ flight (with unique seat constraint)
-`users`	Login accounts with roles and passenger links
-`audit_logs`	Activity log for sensitive actions
-`feedback`	Contact-form messages and replies
----
-📂 Project Structure
+passenger(pid PK, pname, pgender, pcity)
+agency   (aid PK, aname, acity)
+flight   (fid PK, fdate, time, src, dest)
+booking  (bid PK, pid FK, aid FK, fid FK, fdate, seat)   -- Passenger × Agency × Flight
+users    (uid PK, username, password, role, created)     -- app login
 ```
-aerodesk/
-├── index.php          # App shell — boots the JS single-page interface
-├── home.php           # Public marketing landing page
-├── login.php          # Authentication
-├── logout.php
-├── config.php         # DB connection + first-run auto-setup + helpers
-├── api.php            # JSON API — CRUD, bookings, users, SQL Lab, reports
-├── queries.php        # The 30 case-study SQL queries
-├── export.php         # CSV / Excel export
-├── ticket.php         # PDF boarding-pass generator
-├── database.sql       # Schema + sample data + queries (reference)
-└── assets/
-    ├── style.css      # Glassmorphism theme (light/dark)
-    └── app.js         # SPA controller + all views
-```
+
 ---
-📸 Highlights
-🎨 Glassmorphism design with animated gradient backgrounds
-🌗 Light / dark theme toggle (remembered across visits)
-📱 Fully responsive — mobile drawer navigation
-⚡ Single-page feel — every screen loads via JSON API (no full reloads)
-🔄 Zero-config setup — self-healing database layer
+
+## 📝 Notes
+
+- Queries **3, 6, 9** reference `pid = 123`, which is not in the dataset.
+  `database.sql` keeps `123` exactly as the case study states; the SQL Lab demos
+  them with `pid = 110` (flagged in the UI) so you see real output.
+- Verified on **PHP 8.4 + MariaDB/MySQL**: auth + roles, all 30 SQL queries,
+  booking/seat assignment, CRUD with FK protection, and user management all work.
+
 ---
-👤 Author
-Ansh Kumar Singh
-DBMS Project (CSIT-405) · Sagar Institute of Research and Technology
----
-📄 License
-This project was built for academic purposes. Feel free to explore and learn from it.
----
-<div align="center">
-⭐ If you found this project helpful, consider giving it a star!
-</div>
+
+*An academic DBMS deliverable — relational design, joins, subqueries, set
+operations, aggregation & normalization — delivered as a polished PHP + MySQL
+single-page application.*
